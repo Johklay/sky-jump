@@ -22,6 +22,9 @@ startButton.addEventListener('click', () =>{
     startScreen.style.display = 'none';
     pipe.style.animationPlayState = 'running';
     cloud.style.animationPlayState  = 'running';
+
+    mario.classList.remove('mario-idle');
+    mario.classList.add('mario-run')
 })
 
 /*const restartButton = document.getElementById('restart')
@@ -55,7 +58,7 @@ const loop = () =>{
     }
 
     const isPortrait = window.innerHeight > window.innerWidth;
-    const limiteColisao = isPortrait ? 90 : 120;
+    const limiteColisao = isPortrait ? 80 : 100;
     
     if (pipePosition <= limiteColisao && pipePosition > 0 && marioPosition < mario.clientHeight * 0.6){
 
@@ -71,15 +74,25 @@ const loop = () =>{
 
         document.body.classList.add('game-over')
 
-        mario.src = 'img/game-over.png'
-        mario.style.width = '65px'
-        mario.style.marginLeft = '45px'
+        mario.classList.add('mario-dead')
 
+        const restartButton = document.getElementById('restart');
+        if (restartButton){
+            restartButton.style.setProperty('display', 'block', 'important');
+        }
         return;
     }
 
     requestAnimationFrame(loop)
 };
+
+const restartButton = document.getElementById('restart');
+
+if (restartButton) {
+    restartButton.addEventListener('click', () => {
+        window.location.reload();
+    })
+}
 
 document.addEventListener('keydown', jump)
 document.addEventListener('touchstart', jump, {passive: false})

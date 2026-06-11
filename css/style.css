@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items:center ;
     justify-content:center;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.866);
 }
 
 .titulo-iniciar{
@@ -54,15 +54,47 @@
     position: absolute;
     bottom: 0;
     width: 60px;
-    animation:pipe-animation 1.5s infinite linear ;
+    animation:pipe-animation 1.7s infinite linear ;
     animation-play-state: paused;
+
+    z-index: 1;
 }
 
-.mario{
+.mario-idle{
+
+    background-image: url(../img/sky-idle.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0;
+
+    background-size: 240px 120px;
+
+    animation:idle-animation 0.5s steps(2) infinite ;
+}
+
+.mario {
     position: absolute;
-    width: 150px;
+    width: 120px;
+    height: 120px;
     bottom: 0;
 }
+
+.mario-run {
+    background-image: url(../img/sky-run.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 480px 120px;
+
+    animation: run-animation 0.5s steps(4, end) infinite;
+    z-index: 2;
+}
+
+.mario-dead {
+    background-image: url(../img/Die.png) !important;
+    background-size: 720px 120px !important;
+
+    animation: death-animation 0.6s steps(5) forwards !important;
+}
+
 
 .clouds{
     position: absolute;
@@ -104,15 +136,18 @@
     transform: translate(-50%, -50%);
     font-size: 24px;
     border: none;
-    background-color: #000000;
-    padding: 10px;
+    background-color: #000000 !important;
+    color: #ffffff !important; 
+    padding: 15px 30px;
     border-radius: 10px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 1000 !important;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 #restart:hover{
-    background-color: rgba(0, 0, 0, 0.627);
+    background-color: rgba(0, 0, 0, 0.627) !important;
 }
 
 
@@ -159,6 +194,34 @@
     
 }
 
+@keyframes idle-animation {
+    from{
+        background-position:0px 0 ;
+    }
+    to{
+        background-position: -240px 0 ;
+    }
+}
+
+@keyframes run-animation {
+    from {
+        background-position: 0px 0;
+    }
+    to {
+        background-position: -480px 0;
+    }
+}
+
+@keyframes death-animation {
+    from{
+        background-position: 0px 0;
+    }
+    to {
+        background-position: -600px 0;
+    }
+}
+
+
 @media (max-width: 768px) {
     .game-board {
         height: 75vh;
@@ -201,3 +264,20 @@
 body{
     overflow: hidden;
 }
+
+
+/* .mario {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    bottom: 0;
+
+    background-image: url(../img/sky-run.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0;
+   
+   
+    background-size: 480px 120px;
+
+    animation: run-animation 0.5s steps(4, end) infinite;
+} */
